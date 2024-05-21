@@ -47,11 +47,9 @@ function App() {
         <div>
             <MyInput
                 value={searchQuery}
-                onchange={e => setSearchQuery(e.target.value)}
+                onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Поиск..."
             />
-
-            {/*Поиск не работает*/}
 
             <MySelect
                 value={selectedSort}
