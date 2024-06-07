@@ -13,6 +13,9 @@ import PostFilter from "./components/PostFilter";
 import MyModal from "./components/UI/MyModal/MyModal";
 import {usePosts} from "./hooks/usePosts";
 import axios from "axios";
+import PostService from "./API/PostService";
+import Loader from "./components/UI/Loader/Loader";
+import {useFetching} from "./hooks/useFetching";
 
 function App() {
 
@@ -20,6 +23,10 @@ function App() {
     const [filter, setFilter] = useState({sort: '', query: ''})
     const [modal, setModal] = useState(false);
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+    const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+        const posts = await PostService.getAll()
+        setPosts(posts)
+    })
 
     useEffect(() => {
         fetchPosts()
@@ -31,11 +38,6 @@ function App() {
     }
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id))
-    }
-
-    async function fetchPosts() {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-        setPosts(response.data)
     }
 
     return (<div className="App">
@@ -51,7 +53,12 @@ function App() {
             filter={filter}
             setFilter={setFilter}
         />
-        <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты про JS"/>
+        {postError &&
+        <h1>Произошла ошибка ${postError}</h1>}
+        {isPostsLoading
+            ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader/></div>
+            : <PostList remove={removePost} posts={sortedAndSearchedPosts} title="Посты про JS"/>
+        }
     </div>);
 }
 
