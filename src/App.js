@@ -1,17 +1,15 @@
 import React from "react";
 import './styles/Apps.css'
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import About from "./pages/About";
-import Posts from "./pages/Post";
+import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
+import Navbar from "./components/UI/Navbar/Navbar";
+import AppRouter from "./components/AppRouter";
+
 
 function App() {
     return (
         <BrowserRouter>
-            <Navbar />
-            <Routes>
-                <Route path="posts" element={<Posts/>}/>
-                <Route path="about" element={<About/>}/>
-            </Routes>
+            <Navbar/>
+            <AppRouter/>
         </BrowserRouter>
     )
 }
