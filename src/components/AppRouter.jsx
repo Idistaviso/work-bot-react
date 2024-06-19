@@ -3,23 +3,29 @@ import {Route, Routes} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "../router";
 
 const AppRouter = () => {
+    const isAuth = true;
     return (
-        <Routes>
-            {privateRoutes.map(route =>
-                <Route
-                element={route.element}
-                path={route.path}
-                exact={route.exact}
-                />
-            )}
-            {publicRoutes.map(route =>
-                <Route
-                    element={route.element}
-                    path={route.path}
-                    exact={route.exact}
-                />
-            )}
-        </Routes>
+        isAuth
+            ?
+            <Routes>
+                {privateRoutes.map(route =>
+                    <Route
+                        element={route.element}
+                        path={route.path}
+                        exact={route.exact}
+                    />
+                )}
+            </Routes>
+            :
+            <Routes>
+                {publicRoutes.map(route =>
+                    <Route
+                        element={route.element}
+                        path={route.path}
+                        exact={route.exact}
+                    />
+                )}
+            </Routes>
     );
 };
 
