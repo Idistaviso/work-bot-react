@@ -1,5 +1,5 @@
 import About from "../pages/About";
-import Posts from "../pages/Post";
+import Posts from "../pages/Posts";
 import PostIdPage from "../pages/PostIdPage";
 import Login from "../pages/Login";
 import {Navigate} from "react-router-dom";
